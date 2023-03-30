@@ -1,0 +1,25 @@
+.center {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.center1 {
+  text-align: center;
+}
+
+.backgroundnice {
+  background-color: lightblue;
+  border: #000;
+}
+
+.output {
+  text-align: left;
+  color: black;
+  font-size: 23pt;
+}
+.output2 {
+  text-align: right;
+  color: black;
+  font-size: 23pt;
+}

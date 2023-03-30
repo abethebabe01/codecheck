@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Roman Numeral Calculator Abe Lamoreaux</title>
+    <link href="style.css" rel="stylesheet" />
+    <!-- linking the css for style! Used from previous projects. -->
+  </head>
+  <body class="backgroundnice">
+    <h1 class="center1">Welcome to Abe's Roman Numeral Calculator.</h1>
+    <h2 class="center1">
+      Enter your number or roman numeral below, and press the appropriate button
+      to calculate.
+    </h2>
+    &nbsp;
+    <!-- This is the form for text input to run the calculator. -->
+    <input class="center" id="romanInput" type="text" />
+    &nbsp;
+    <button class="center" onclick="romanToNumber()">UnRomanize</button>
+    <button class="center" onclick="convertToRoman()">Romanize</button>
+    &nbsp;
+    <h2 class="output">Roman Numeral --> Number</h2>
+    <h2 class="output2">Number --> Roman Numeral</h2>
+
+    <p class="output" id="output"></p>
+    <p class="output2" id="output2"></p>
+    <script>
+      // This function will calculate the Numeric Value of a given Roman Numeral
+      const textInput = document.getElementById("romanInput");
+
+      // First Function: Converts Roman Numerals into Numbers
+      function romanToNumber() {
+        let outcome = 0;
+        const romanInput = document.getElementById("romanInput");
+        let romanValue = romanInput.value.toUpperCase();
+        let romanArray = [];
+        // split the value into an array to then assign the value to each number
+        for (let i = 0; i < romanValue.length; i++) {
+          romanArray[i] = romanValue.charAt(i);
+        }
+
+        console.log(romanArray); // testing that the array functioned
+        // romanMap will convert the array of numerals into numbers
+        let romanMap = {
+          I: 1,
+          V: 5,
+          X: 10,
+          L: 50,
+          C: 100,
+          D: 500,
+          M: 1000,
+        };
+        let result = 0; // setting the output to 0. The following loop will assign each roman character to its proper numeric value.
+        for (let i = 0; i < romanArray.length; i++) {
+          let currentChar = romanMap[romanArray[i]];
+          let nextChar = romanMap[romanArray[i + 1]];
+          // This if statement sets fufills step 3 the challenge.
+          if (nextChar && nextChar > currentChar) {
+            result += nextChar - currentChar;
+            i++;
+          } else {
+            result += currentChar;
+          }
+        }
+        // step 4: I ran out of time to code requirement of keeping the numeral from using smaller numbers. I would like have done this with a bunch of if statements
+
+        outcome = outcome + result + " = " + romanValue;
+        document.getElementById("output").innerHTML = outcome; // go back to result if outcome doesn't work.
+        document.getElementById("romanInput").focus();
+      }
+
+      // Second Function: this is the function to convert a number to a roman numeral.
+      function convertToRoman() {
+        let romanInput = document.getElementById("romanInput").value;
+        console.log(romanInput);
+        let initialInput = romanInput;
+        let result = "";
+        let outcome = 0;
+
+        // creating two arrays to assign values for the roman numerals
+        let romanNumeral = [
+          "M",
+          "CM",
+          "D",
+          "CD",
+          "C",
+          "XC",
+          "L",
+          "XL",
+          "X",
+          "IX",
+          "V",
+          "IV",
+          "I",
+        ];
+
+        let numNumeral = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]; // using numbers like 4,9, etc. to get around roman numeral issues.
+
+        // this loop will convert the numNumeral array into the Roman Numeral.
+        for (let i = 0; i < numNumeral.length; i++) {
+          while (romanInput >= numNumeral[i]) {
+            result += romanNumeral[i];
+            romanInput -= numNumeral[i];
+          }
+        }
+        console.log(result);
+        outcome = result + " = " + initialInput;
+        document.getElementById("output2").innerHTML = outcome;
+        document.getElementById("romanInput").focus(); // puts the focus back into the text box.
+      }
+    </script>
+  </body>
+</html>
